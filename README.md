@@ -15,6 +15,7 @@
 * 使用 Windows 官方的 `pnputil.exe /remove-device` 命令尝试进行设备移除。
 * 提供移除操作的摘要报告（成功/失败计数）。
 * 交互式提示和彩色输出，以提高可读性。
+* 有助于解决因硬件冲突（包括虚拟设备和已断开的外设残留信息）引发的多种问题，例如修复因残留设备条目导致的游戏卡顿（示例：曾成功解决在《优米雅的炼金工房 ～追忆之炼金术士与幻创之地～》中遇到的与控制器相关的卡顿问题）。
 
 ## 系统要求
 
@@ -82,6 +83,7 @@ This PowerShell script helps advanced users clean up non-present (disconnected o
 * Uses the official `pnputil.exe /remove-device` command for removal attempts.
 * Provides a summary of removal attempts (success/failure count).
 * Interactive prompts and colored output for better readability.
+* Aids in resolving various issues caused by hardware conflicts (including virtual devices and disconnected peripherals), such as fixing game stuttering linked to residual device entries (e.g., successfully addressed controller-related stuttering in Atelier Yumia: The Alchemist of Memories & the Envisioned Land).
 
 ## Requirements
 
