@@ -1,37 +1,37 @@
-# éœ€è¦ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œ
+# ĞèÒªÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞ
 
-Write-Host " PowerShell è„šæœ¬åˆå§‹åŒ–... " -ForegroundColor Cyan
+Write-Host " PowerShell ½Å±¾³õÊ¼»¯... " -ForegroundColor Cyan
 Write-Host "--------------------------------------------------" -ForegroundColor Cyan
-Write-Host "ç¬¬ 1 æ­¥ï¼šæ­£åœ¨æœç´¢å¹¶åˆ†ç±» 'éå½“å‰çŠ¶æ€' (é€šå¸¸æ˜¯å·²å¸è½½æˆ–æœªè¿æ¥çš„) è®¾å¤‡..." -ForegroundColor Cyan
+Write-Host "µÚ 1 ²½£ºÕıÔÚËÑË÷²¢·ÖÀà '·Çµ±Ç°×´Ì¬' (Í¨³£ÊÇÒÑĞ¶ÔØ»òÎ´Á¬½ÓµÄ) Éè±¸..." -ForegroundColor Cyan
 
-# è·å–æ‰€æœ‰éå½“å‰è®¾å¤‡ä¿¡æ¯
+# »ñÈ¡ËùÓĞ·Çµ±Ç°Éè±¸ĞÅÏ¢
 $nonPresentDevices = Get-PnpDevice -PresentOnly:$false | Where-Object { $_.InstanceId -ne $null }
 
 if ($null -eq $nonPresentDevices -or $nonPresentDevices.Count -eq 0) {
-    Write-Host "[å®Œæˆ] æœªæ‰¾åˆ°ä»»ä½•ç¬¦åˆæ¡ä»¶çš„ 'éå½“å‰çŠ¶æ€' è®¾å¤‡ã€‚" -ForegroundColor Green
+    Write-Host "[Íê³É] Î´ÕÒµ½ÈÎºÎ·ûºÏÌõ¼şµÄ '·Çµ±Ç°×´Ì¬' Éè±¸¡£" -ForegroundColor Green
     Start-Sleep -Seconds 3 
     exit
 }
 
-Write-Host "[å®Œæˆ] å·²æ‰¾åˆ° $($nonPresentDevices.Count) ä¸ª 'éå½“å‰çŠ¶æ€' è®¾å¤‡ï¼Œæ­£åœ¨æŒ‰ç±»åˆ«åˆ†ç»„..." -ForegroundColor Green
+Write-Host "[Íê³É] ÒÑÕÒµ½ $($nonPresentDevices.Count) ¸ö '·Çµ±Ç°×´Ì¬' Éè±¸£¬ÕıÔÚ°´Àà±ğ·Ö×é..." -ForegroundColor Green
 
-# æŒ‰è®¾å¤‡ç±»åˆ« (Class) åˆ†ç»„ï¼Œå¹¶æŒ‰ç±»åæ’åº
+# °´Éè±¸Àà±ğ (Class) ·Ö×é£¬²¢°´ÀàÃûÅÅĞò
 $groupedDevices = $nonPresentDevices | Group-Object -Property Class | Sort-Object Name
 
 Write-Host "==================================================" -ForegroundColor Yellow
-Write-Host "ç¬¬ 2 æ­¥ï¼šå‘ç°ä»¥ä¸‹ 'éå½“å‰çŠ¶æ€' è®¾å¤‡ (æŒ‰ç±»åˆ«è¯¦ç»†åˆ—å‡º):" -ForegroundColor Yellow
+Write-Host "µÚ 2 ²½£º·¢ÏÖÒÔÏÂ '·Çµ±Ç°×´Ì¬' Éè±¸ (°´Àà±ğÏêÏ¸ÁĞ³ö):" -ForegroundColor Yellow
 Write-Host "==================================================" -ForegroundColor Yellow
 
 $categoryList = @{} 
 $i = 1
-# éå†åˆ†ç»„ï¼Œæ˜¾ç¤ºç±»åˆ«æ ‡é¢˜å’Œè¯¥ç±»åˆ«ä¸‹çš„è®¾å¤‡åˆ—è¡¨
+# ±éÀú·Ö×é£¬ÏÔÊ¾Àà±ğ±êÌâºÍ¸ÃÀà±ğÏÂµÄÉè±¸ÁĞ±í
 foreach ($group in $groupedDevices) {
     $className = $group.Name 
-    Write-Host "[$($i)] ç±»åˆ«: $($className) (å…± $($group.Count) ä¸ª 'éå½“å‰' è®¾å¤‡)" -ForegroundColor White -BackgroundColor DarkBlue 
+    Write-Host "[$($i)] Àà±ğ: $($className) (¹² $($group.Count) ¸ö '·Çµ±Ç°' Éè±¸)" -ForegroundColor White -BackgroundColor DarkBlue 
     $deviceCounterInCategory = 1
     foreach ($device in $group.Group) {
-        Write-Host "  $($deviceCounterInCategory). è®¾å¤‡åç§°: $($device.FriendlyName)"
-        Write-Host "     çŠ¶æ€: $($device.Status)" 
+        Write-Host "  $($deviceCounterInCategory). Éè±¸Ãû³Æ: $($device.FriendlyName)"
+        Write-Host "     ×´Ì¬: $($device.Status)" 
         $deviceCounterInCategory++
     }
     $categoryList[$i] = $group 
@@ -39,50 +39,50 @@ foreach ($group in $groupedDevices) {
     Write-Host "--------------------------------------------------" 
 }
 Write-Host "==================================================" -ForegroundColor Yellow
-# === åˆ—è¡¨æ˜¾ç¤ºç»“æŸ ===
+# === ÁĞ±íÏÔÊ¾½áÊø ===
 
 # **************************************************
-# ***** ä¸¥å‰è­¦å‘Šå¼€å§‹               *****
+# ***** ÑÏÀ÷¾¯¸æ¿ªÊ¼               *****
 # **************************************************
 Write-Host ""
 Write-Host "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" -ForegroundColor Red -BackgroundColor Black
-Write-Host "!!!                æåº¦å±é™©æ“ä½œè­¦å‘Š            !!!" -ForegroundColor Red -BackgroundColor Black
+Write-Host "!!!                ¼«¶ÈÎ£ÏÕ²Ù×÷¾¯¸æ            !!!" -ForegroundColor Red -BackgroundColor Black
 Write-Host "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" -ForegroundColor Red -BackgroundColor Black
 Write-Host ""
-Write-Warning "æ‚¨æ­£å‡†å¤‡è¿›è¡Œä¸€é¡¹å¯èƒ½å¯¹ç³»ç»Ÿäº§ç”Ÿæ·±è¿œå½±å“çš„æ“ä½œï¼"
-Write-Warning "è¯·åŠ¡å¿…ã€åŠ¡å¿…ã€åŠ¡å¿…æå…¶è®¤çœŸåœ°æ£€æŸ¥ä¸Šé¢åˆ—å‡ºçš„ã€æ¯ä¸€ä¸ªã€‘è®¾å¤‡ï¼"
-Write-Warning "ç¡®è®¤å®ƒä»¬ç¡®å®æ˜¯æ‚¨ä¸å†éœ€è¦ã€ä¸”å¯ä»¥å®‰å…¨ç§»é™¤çš„æ®‹ç•™ä¿¡æ¯ã€‚"
+Write-Warning "ÄúÕı×¼±¸½øĞĞÒ»Ïî¿ÉÄÜ¶ÔÏµÍ³²úÉúÉîÔ¶Ó°ÏìµÄ²Ù×÷£¡"
+Write-Warning "ÇëÎñ±Ø¡¢Îñ±Ø¡¢Îñ±Ø¼«ÆäÈÏÕæµØ¼ì²éÉÏÃæÁĞ³öµÄ¡¾Ã¿Ò»¸ö¡¿Éè±¸£¡"
+Write-Warning "È·ÈÏËüÃÇÈ·ÊµÊÇÄú²»ÔÙĞèÒª¡¢ÇÒ¿ÉÒÔ°²È«ÒÆ³ıµÄ²ĞÁôĞÅÏ¢¡£"
 Write-Host ""
-Write-Warning "ã€æ½œåœ¨é£é™©ã€‘é”™è¯¯åœ°ç§»é™¤è®¾å¤‡å¯èƒ½å¯¼è‡´ï¼š"
-Write-Warning "  - å…³é”®ç¡¬ä»¶ï¼ˆå¦‚ä¸»æ¿ç»„ä»¶ã€ç‰¹æ®ŠUSBè®¾å¤‡ç­‰ï¼‰åŠŸèƒ½å¼‚å¸¸æˆ–å®Œå…¨å¤±æ•ˆï¼"
-Write-Warning "  - ç³»ç»Ÿé¢‘ç¹è“å±ã€æ— æ³•å¯åŠ¨æˆ–è¿è¡Œæå…¶ä¸ç¨³å®šï¼"
-Write-Warning "  - éœ€è¦èŠ±è´¹å¤§é‡æ—¶é—´é‡æ–°å®‰è£…é©±åŠ¨ç¨‹åºã€è¿›è¡Œå¤æ‚çš„ç³»ç»Ÿä¿®å¤ï¼Œç”šè‡³è¢«è¿«é‡è£…ç³»ç»Ÿï¼"
-Write-Warning "  - æŸäº›æ‚¨è®¤ä¸ºæ— ç”¨æˆ–ä¸è®¤è¯†çš„è®¾å¤‡ï¼Œå¯èƒ½æ˜¯å…¶ä»–ç¡¬ä»¶æ­£å¸¸å·¥ä½œæ‰€ä¾èµ–çš„åº•å±‚ç»„ä»¶ï¼"
+Write-Warning "¡¾Ç±ÔÚ·çÏÕ¡¿´íÎóµØÒÆ³ıÉè±¸¿ÉÄÜµ¼ÖÂ£º"
+Write-Warning "  - ¹Ø¼üÓ²¼ş£¨ÈçÖ÷°å×é¼ş¡¢ÌØÊâUSBÉè±¸µÈ£©¹¦ÄÜÒì³£»òÍêÈ«Ê§Ğ§£¡"
+Write-Warning "  - ÏµÍ³Æµ·±À¶ÆÁ¡¢ÎŞ·¨Æô¶¯»òÔËĞĞ¼«Æä²»ÎÈ¶¨£¡"
+Write-Warning "  - ĞèÒª»¨·Ñ´óÁ¿Ê±¼äÖØĞÂ°²×°Çı¶¯³ÌĞò¡¢½øĞĞ¸´ÔÓµÄÏµÍ³ĞŞ¸´£¬ÉõÖÁ±»ÆÈÖØ×°ÏµÍ³£¡"
+Write-Warning "  - Ä³Ğ©ÄúÈÏÎªÎŞÓÃ»ò²»ÈÏÊ¶µÄÉè±¸£¬¿ÉÄÜÊÇÆäËûÓ²¼şÕı³£¹¤×÷ËùÒÀÀµµÄµ×²ã×é¼ş£¡"
 Write-Host ""
-Write-Warning "ã€å¼ºçƒˆå»ºè®®ã€‘åœ¨è¿›è¡Œä»»ä½•é€‰æ‹©å’Œåˆ é™¤æ“ä½œä¹‹å‰ï¼š"
-Write-Warning "  1. ç«‹å³æ‰‹åŠ¨ã€åˆ›å»ºç³»ç»Ÿè¿˜åŸç‚¹ã€‘ï¼"
-Write-Warning "  2. å¤‡ä»½æ‰€æœ‰ã€é‡è¦ä¸ªäººæ–‡ä»¶å’Œæ•°æ®ã€‘åˆ°å¤–éƒ¨å­˜å‚¨ï¼"
-Write-Warning "  3. å¦‚æœæ‚¨å¯¹åˆ—è¡¨ä¸­çš„ä»»ä½•è®¾å¤‡ä¸ç¡®å®šï¼Œè¯·ã€ä¸è¦é€‰æ‹©ã€‘åŒ…å«è¯¥è®¾å¤‡çš„ç±»åˆ«ï¼å®å¯ä¸åˆ ï¼Œä¸å¯é”™åˆ ï¼"
+Write-Warning "¡¾Ç¿ÁÒ½¨Òé¡¿ÔÚ½øĞĞÈÎºÎÑ¡ÔñºÍÉ¾³ı²Ù×÷Ö®Ç°£º"
+Write-Warning "  1. Á¢¼´ÊÖ¶¯¡¾´´½¨ÏµÍ³»¹Ô­µã¡¿£¡"
+Write-Warning "  2. ±¸·İËùÓĞ¡¾ÖØÒª¸öÈËÎÄ¼şºÍÊı¾İ¡¿µ½Íâ²¿´æ´¢£¡"
+Write-Warning "  3. Èç¹ûÄú¶ÔÁĞ±íÖĞµÄÈÎºÎÉè±¸²»È·¶¨£¬Çë¡¾²»ÒªÑ¡Ôñ¡¿°üº¬¸ÃÉè±¸µÄÀà±ğ£¡Äş¿É²»É¾£¬²»¿É´íÉ¾£¡"
 Write-Host ""
-Write-Warning "ã€è´£ä»»è‡ªè´Ÿã€‘æ‚¨å°†å¯¹å› ä½¿ç”¨æ­¤è„šæœ¬è¿›è¡Œåˆ é™¤æ“ä½œè€Œå¯èƒ½å¼•å‘çš„ä»»ä½•ç›´æ¥æˆ–é—´æ¥æŸå¤±æ‰¿æ‹…å…¨éƒ¨è´£ä»»ï¼"
+Write-Warning "¡¾ÔğÈÎ×Ô¸º¡¿Äú½«¶ÔÒòÊ¹ÓÃ´Ë½Å±¾½øĞĞÉ¾³ı²Ù×÷¶ø¿ÉÄÜÒı·¢µÄÈÎºÎÖ±½Ó»ò¼ä½ÓËğÊ§³Ğµ£È«²¿ÔğÈÎ£¡"
 Write-Host ""
-Write-Host "è¯·åœ¨å®Œå…¨ç†è§£å¹¶æ¥å—ä¸Šè¿°é£é™©ï¼Œå¹¶å·²å®Œæˆæ‰€æœ‰å¿…è¦çš„å¤‡ä»½æªæ–½åï¼Œæ‰ç»§ç»­è¿›è¡Œä¸‹ä¸€æ­¥çš„é€‰æ‹©ã€‚" -ForegroundColor Cyan
-Write-Host "--------------------------------------------------" # åˆ†éš”çº¿ï¼Œå‡†å¤‡è¿›å…¥é€‰æ‹©æ­¥éª¤
+Write-Host "ÇëÔÚÍêÈ«Àí½â²¢½ÓÊÜÉÏÊö·çÏÕ£¬²¢ÒÑÍê³ÉËùÓĞ±ØÒªµÄ±¸·İ´ëÊ©ºó£¬²Å¼ÌĞø½øĞĞÏÂÒ»²½µÄÑ¡Ôñ¡£" -ForegroundColor Cyan
+Write-Host "--------------------------------------------------" # ·Ö¸ôÏß£¬×¼±¸½øÈëÑ¡Ôñ²½Öè
 # **************************************************
-# ***** ä¸¥å‰è­¦å‘Šç»“æŸ               *****
+# ***** ÑÏÀ÷¾¯¸æ½áÊø               *****
 # **************************************************
 
 
-# ç¬¬ 3 æ­¥ï¼šè·å–ç”¨æˆ·é€‰æ‹©è¦æ¸…ç†çš„ç±»åˆ«
+# µÚ 3 ²½£º»ñÈ¡ÓÃ»§Ñ¡ÔñÒªÇåÀíµÄÀà±ğ
 $selectedCategories = @() 
 while ($true) {
-    $input = Read-Host "è¯·è¾“å…¥æ‚¨æƒ³è¦æ¸…ç†çš„ç±»åˆ«ç¼–å· (å¯è¾“å…¥å¤šä¸ªç¼–å·ï¼Œç”¨è‹±æ–‡é€—å·','åˆ†éš”; è¾“å…¥ 'A' é€‰æ‹©å…¨éƒ¨; ç›´æ¥æŒ‰ Enter é”®å–æ¶ˆæ“ä½œ)"
+    $input = Read-Host "ÇëÊäÈëÄúÏëÒªÇåÀíµÄÀà±ğ±àºÅ (¿ÉÊäÈë¶à¸ö±àºÅ£¬ÓÃÓ¢ÎÄ¶ººÅ','·Ö¸ô; ÊäÈë 'A' Ñ¡ÔñÈ«²¿; Ö±½Ó°´ Enter ¼üÈ¡Ïû²Ù×÷)"
     if ([string]::IsNullOrWhiteSpace($input)) {
-        Write-Host "æ“ä½œå·²å–æ¶ˆã€‚" -ForegroundColor Yellow
+        Write-Host "²Ù×÷ÒÑÈ¡Ïû¡£" -ForegroundColor Yellow
         exit
     }
     if ($input -match '^[Aa]$') {
-         Write-Host "ç¡®è®¤é€‰æ‹©: [å…¨éƒ¨ç±»åˆ«]" -ForegroundColor Magenta
+         Write-Host "È·ÈÏÑ¡Ôñ: [È«²¿Àà±ğ]" -ForegroundColor Magenta
          $selectedCategories = $groupedDevices 
          break 
     }
@@ -96,7 +96,7 @@ while ($true) {
                  $tempSelectedGroups += $categoryList[$num]
             }
         } else {
-            Write-Warning "è¾“å…¥æ— æ•ˆ: '$($numStr)'ã€‚ è¯·ç¡®ä¿è¾“å…¥çš„æ˜¯ä¸Šé¢åˆ—è¡¨ä¸­çš„æœ‰æ•ˆç¼–å·ï¼Œå¹¶ç”¨é€—å·åˆ†éš”ã€‚"
+            Write-Warning "ÊäÈëÎŞĞ§: '$($numStr)'¡£ ÇëÈ·±£ÊäÈëµÄÊÇÉÏÃæÁĞ±íÖĞµÄÓĞĞ§±àºÅ£¬²¢ÓÃ¶ººÅ·Ö¸ô¡£"
             $validSelection = $false 
             $tempSelectedGroups = @() 
             break 
@@ -109,66 +109,66 @@ while ($true) {
 }
 
 if ($selectedCategories.Count -eq 0) {
-     Write-Host "æœªé€‰æ‹©ä»»ä½•æœ‰æ•ˆç±»åˆ«ï¼Œæ“ä½œç»ˆæ­¢ã€‚" -ForegroundColor Yellow
+     Write-Host "Î´Ñ¡ÔñÈÎºÎÓĞĞ§Àà±ğ£¬²Ù×÷ÖÕÖ¹¡£" -ForegroundColor Yellow
      exit
 }
 
-# ç¬¬ 4 æ­¥ï¼šæ±‡æ€»å¹¶ç¡®è®¤å°†è¦åˆ é™¤çš„è®¾å¤‡
+# µÚ 4 ²½£º»ã×Ü²¢È·ÈÏ½«ÒªÉ¾³ıµÄÉè±¸
 $devicesToRemove = @() 
 Write-Host "--------------------------------------------------" -ForegroundColor Cyan
-Write-Host "ç¬¬ 4 æ­¥ï¼šç¡®è®¤æ“ä½œ - æ‚¨å·²é€‰æ‹©æ¸…ç†ä»¥ä¸‹ç±»åˆ«çš„ 'éå½“å‰' è®¾å¤‡:" -ForegroundColor Cyan
+Write-Host "µÚ 4 ²½£ºÈ·ÈÏ²Ù×÷ - ÄúÒÑÑ¡ÔñÇåÀíÒÔÏÂÀà±ğµÄ '·Çµ±Ç°' Éè±¸:" -ForegroundColor Cyan
 foreach ($selectedGroup in $selectedCategories) {
-    Write-Host "- ç±»åˆ«: $($selectedGroup.Name) (åŒ…å« $($selectedGroup.Count) ä¸ªè®¾å¤‡)"
+    Write-Host "- Àà±ğ: $($selectedGroup.Name) (°üº¬ $($selectedGroup.Count) ¸öÉè±¸)"
     $devicesToRemove += $selectedGroup.Group 
 }
 $totalToRemove = $devicesToRemove.Count
-Write-Host "æ€»è®¡å°†å°è¯•ç§»é™¤ $($totalToRemove) ä¸ªè®¾å¤‡ã€‚" -ForegroundColor Cyan
+Write-Host "×Ü¼Æ½«³¢ÊÔÒÆ³ı $($totalToRemove) ¸öÉè±¸¡£" -ForegroundColor Cyan
 Write-Host "--------------------------------------------------" -ForegroundColor Cyan
 
-# ç¬¬ 5 æ­¥ï¼šæœ€ç»ˆç¡®è®¤
-Write-Warning "è¯·æœ€ç»ˆç¡®è®¤ï¼æ­¤æ“ä½œå°†å°è¯•ç§»é™¤æ‚¨é€‰å®šçš„ $($selectedCategories.Count) ä¸ªç±»åˆ«ä¸­çš„å…± $($totalToRemove) ä¸ª 'éå½“å‰' è®¾å¤‡ã€‚"
-$finalConfirmation = Read-Host "æ˜¯å¦ç¡®å®šæ‰§è¡Œæ‰¹é‡ç§»é™¤æ“ä½œ? (è¾“å…¥ 'Y' ç¡®è®¤, è¾“å…¥å…¶ä»–ä»»æ„å†…å®¹æˆ–ç›´æ¥æŒ‰ Enter å–æ¶ˆ)"
+# µÚ 5 ²½£º×îÖÕÈ·ÈÏ
+Write-Warning "Çë×îÖÕÈ·ÈÏ£¡´Ë²Ù×÷½«³¢ÊÔÒÆ³ıÄúÑ¡¶¨µÄ $($selectedCategories.Count) ¸öÀà±ğÖĞµÄ¹² $($totalToRemove) ¸ö '·Çµ±Ç°' Éè±¸¡£"
+$finalConfirmation = Read-Host "ÊÇ·ñÈ·¶¨Ö´ĞĞÅúÁ¿ÒÆ³ı²Ù×÷? (ÊäÈë 'Y' È·ÈÏ, ÊäÈëÆäËûÈÎÒâÄÚÈİ»òÖ±½Ó°´ Enter È¡Ïû)"
 
 if ($finalConfirmation -match '^[Yy]$') {
-    # ç¬¬ 6 æ­¥ï¼šæ‰§è¡Œæ‰¹é‡ç§»é™¤
+    # µÚ 6 ²½£ºÖ´ĞĞÅúÁ¿ÒÆ³ı
     Write-Host "--------------------------------------------------" -ForegroundColor Green
-    Write-Host "ç¬¬ 6 æ­¥ï¼šæ­£åœ¨æ‰§è¡Œæ‰¹é‡ç§»é™¤..." -ForegroundColor Green
+    Write-Host "µÚ 6 ²½£ºÕıÔÚÖ´ĞĞÅúÁ¿ÒÆ³ı..." -ForegroundColor Green
     Write-Host "--------------------------------------------------" -ForegroundColor Green
     $removedCount = 0
     $failedCount = 0
     foreach ($device in $devicesToRemove) {
-        Write-Host "  æ­£åœ¨å°è¯•ç§»é™¤: $($device.FriendlyName) (ç±»åˆ«: $($device.Class)) ..." -NoNewline
+        Write-Host "  ÕıÔÚ³¢ÊÔÒÆ³ı: $($device.FriendlyName) (Àà±ğ: $($device.Class)) ..." -NoNewline
         try {
             $process = Start-Process -FilePath "pnputil.exe" -ArgumentList "/remove-device `"$($device.InstanceId)`"" -Wait -PassThru -WindowStyle Hidden -ErrorAction Stop
             if ($process.ExitCode -eq 0 -or $process.ExitCode -eq 3010) { 
-                Write-Host "[æˆåŠŸ]" -ForegroundColor Green
+                Write-Host "[³É¹¦]" -ForegroundColor Green
                 $removedCount++
             } else {
-                Write-Host "[å¤±è´¥ - PnPUtil é€€å‡ºä»£ç : $($process.ExitCode)]" -ForegroundColor Red
+                Write-Host "[Ê§°Ü - PnPUtil ÍË³ö´úÂë: $($process.ExitCode)]" -ForegroundColor Red
                 $failedCount++
             }
         } catch {
-            Write-Host "[æ‰§è¡Œé”™è¯¯: $($_.Exception.Message)]" -ForegroundColor Red
+            Write-Host "[Ö´ĞĞ´íÎó: $($_.Exception.Message)]" -ForegroundColor Red
             $failedCount++
         }
     }
-    # è¾“å‡ºæ€»ç»“æŠ¥å‘Š
+    # Êä³ö×Ü½á±¨¸æ
     Write-Host "--------------------------------------------------" -ForegroundColor Cyan
-    Write-Host "æ‰¹é‡ç§»é™¤æ“ä½œå®Œæˆã€‚" -ForegroundColor Cyan
-    Write-Host "æˆåŠŸè¯·æ±‚ç§»é™¤: $removedCount ä¸ª" -ForegroundColor Green
-    Write-Host "å¤±è´¥æˆ–å‡ºé”™: $failedCount ä¸ª" -ForegroundColor Yellow
+    Write-Host "ÅúÁ¿ÒÆ³ı²Ù×÷Íê³É¡£" -ForegroundColor Cyan
+    Write-Host "³É¹¦ÇëÇóÒÆ³ı: $removedCount ¸ö" -ForegroundColor Green
+    Write-Host "Ê§°Ü»ò³ö´í: $failedCount ¸ö" -ForegroundColor Yellow
     if ($failedCount -gt 0) {
-         Write-Host "æç¤ºï¼šå¤±è´¥çš„æ¡ç›®å¯èƒ½æ˜¯å› ä¸ºè®¾å¤‡æ­£åœ¨è¢«ä½¿ç”¨ã€æƒé™ä¸è¶³æˆ–å…¶ä»–åŸå› ã€‚æ‚¨å¯ä»¥å°è¯•æ‰‹åŠ¨åˆ é™¤æˆ–é‡å¯åé‡è¯•ã€‚" -ForegroundColor Yellow
+         Write-Host "ÌáÊ¾£ºÊ§°ÜµÄÌõÄ¿¿ÉÄÜÊÇÒòÎªÉè±¸ÕıÔÚ±»Ê¹ÓÃ¡¢È¨ÏŞ²»×ã»òÆäËûÔ­Òò¡£Äú¿ÉÒÔ³¢ÊÔÊÖ¶¯É¾³ı»òÖØÆôºóÖØÊÔ¡£" -ForegroundColor Yellow
     }
-    Write-Host "æ³¨æ„ï¼šæŸäº›è®¾å¤‡çš„å®Œå…¨ç§»é™¤å¯èƒ½éœ€è¦é‡æ–°å¯åŠ¨è®¡ç®—æœºã€‚" -ForegroundColor Cyan
+    Write-Host "×¢Òâ£ºÄ³Ğ©Éè±¸µÄÍêÈ«ÒÆ³ı¿ÉÄÜĞèÒªÖØĞÂÆô¶¯¼ÆËã»ú¡£" -ForegroundColor Cyan
 
 } else {
-    Write-Host "æ“ä½œå·²å–æ¶ˆï¼Œæœªç§»é™¤ä»»ä½•è®¾å¤‡ã€‚" -ForegroundColor Yellow
+    Write-Host "²Ù×÷ÒÑÈ¡Ïû£¬Î´ÒÆ³ıÈÎºÎÉè±¸¡£" -ForegroundColor Yellow
 }
 
 Write-Host "--------------------------------------------------"
-Write-Host "è„šæœ¬æ‰§è¡Œå®Œæ¯•ã€‚"
+Write-Host "½Å±¾Ö´ĞĞÍê±Ï¡£"
 Write-Host "--------------------------------------------------"
 
-# # å¯é€‰æš‚åœ
-# Read-Host "æŒ‰ Enter é”®é€€å‡º..."
+# # ¿ÉÑ¡ÔİÍ£
+# Read-Host "°´ Enter ¼üÍË³ö..."
